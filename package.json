@@ -1,0 +1,45 @@
+{
+  "name": "dmbot",
+  "version": "0.0.1",
+  "main": "build/app.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "babel-node src/app",
+    "start": "yarn dev",
+    "worker": "babel-node src/worker",
+    "build": "rimraf build && babel src -d build",
+    "start:prod": "node build/app --turbo",
+    "worker:prod": "node build/worker --turbo",
+    "archive-test": "babel-node src/modules/archiver"
+  },
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-module-resolver": "^2.7.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.5.2",
+    "bull": "^3.0.0-rc.3",
+    "cheerio": "^1.0.0-rc.1",
+    "dotenv": "^4.0.0",
+    "import-dir": "^0.0.1",
+    "ioredis": "^3.1.1",
+    "node-fetch": "^1.7.1",
+    "node-horseman": "^3.3.0",
+    "phantom": "^4.0.4",
+    "rimraf": "^2.6.1",
+    "robots": "^0.9.5",
+    "sleep-promise": "^2.0.0",
+    "snoocore": "^3.3.1",
+    "striptags": "^3.0.1",
+    "to-markdown": "^3.0.4",
+    "summary-bot": "git://github.com/scf4/summary-bot.git"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.0.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-import-resolver-babel-module": "^3.0.0",
+    "eslint-plugin-import": "^2.3.0",
+    "nodemon": "^1.11.0"
+  }
+}
