@@ -24,7 +24,7 @@ export default async (domain) => {
           // we haven't already dealt with this post:
           !await redis.get(data.id)
         ) {
-          scrapeQueue.add(data);
+          postQueue.add(data);
           logger(`${watcherName}: Added ${data.id} to scrape queue`);
           await redis.set(data.id, data.url);
         }
