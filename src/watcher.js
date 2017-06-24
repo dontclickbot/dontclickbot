@@ -4,7 +4,7 @@ import config from 'config';
 import { fetchPostsForDomain } from 'modules/reddit';
 import logger from 'modules/logger';
 import redis from 'modules/redis';
-import { scrapeQueue } from 'modules/queue';
+import { postQueue } from 'modules/queue';
 
 import { isImage } from 'utils/urls';
 
