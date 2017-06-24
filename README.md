@@ -24,11 +24,11 @@ Setup a .env file in the root dir with `REDIS_URL=redis://localhost:6379` (or so
 
 `dontclickbot` loads each file in the `scrapers` directory and uses the static `domain` property to look for new Reddit posts at `http://reddit.com/domain/<domain>`.
 
-It adds each post it finds to the `scrapeQueue` (which uses [Bull](https://github.com/OptimalBits/bull)).
+It adds each post it finds to the `postQueue` (which uses [Bull](https://github.com/OptimalBits/bull)).
 
-For each `scrapeQueue` job, it pulls the relevant `Scraper` from the `domainMap` and creates a new instance (`scraper`) with the provided URL and runs (`scraper.run()`).
+For each `postQueue` job, it pulls the relevant `Scraper` from the `domainMap` and creates a new instance (`scraper`) with the provided URL and runs (`scraper.run()`).
 
-After it runs, the instance will have the following relevant info as properties: `websiteName`, `formattedArticle`, and `moreInfo`. These are formatted with the `commentTemplate` and then passed to the `commentQueue`.
+After it runs, the instance will have the following relevant info as properties: `websiteName`, `formattedArticle`, and `moreInfo`. These are formatted with the `commentTemplate` and then posted to Reddit.
 
 ### How each `Scraper` works
 
@@ -64,17 +64,14 @@ We `map()` through each element (note: this is `Cheerio`'s map, not the built-in
 
 #### `formattedArticle`
 
-This takes in the object returned by from `scrape()` and returns a string which is simply the article formatted in Reddit markdown.
+This takes in the object returned by from `scrape()` and returns a string.
 
 ### Todo:
 
-- Urgent: proper checking and error handling for when scraping fails. Currently posts an empty template as a comment.
 - Process article links which people post in comments too!
-- Mix images in with article content
 - Add delay between starting each watcher (`Promise.all` will run them simultaneously)
 - Add more scrapers
-- It currently waits 10 minutes between comments, instead of the minimum time reddit provides in the response body of an error
-- Tests and refactoring depending on the response to this bot
+- It currently waits a few minutes between comments, instead of the minimum time reddit provides in the response body of an error
 
 PRs would be seriously appreciated for any of these, especially the one for dealing with article links in comments. This is my first Reddit bot so I'm not too familiar with the API.
 
